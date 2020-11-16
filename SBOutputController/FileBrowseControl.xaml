@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="SBOutputController.FileBrowseControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SBOutputController"
+             x:Name="UserControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="TextBoxFilePath" Grid.Column="0" IsReadOnly="True" Foreground="SlateGray" Padding="3,0,0,0" VerticalContentAlignment="Center" BorderThickness="1,1,0,1" Text="{Binding FilePath, ElementName=UserControl, TargetNullValue=...}"/>
+        <Button x:Name="ButtonBrowseFilePath" Grid.Column="1" Content="Browse" Width="60" Click="ButtonBrowseFilePath_Click"/>
+    </Grid>
+</UserControl>

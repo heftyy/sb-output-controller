@@ -1,0 +1,107 @@
+﻿<Window x:Class="SBOutputController.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:local="clr-namespace:SBOutputController"
+                 xmlns:properties="clr-namespace:SBOutputController.Properties"
+                 mc:Ignorable="d"
+                 Loaded="Window_Loaded"
+                 Closing="Window_Closing"
+                 Title="SB Output Controller" MinHeight="340" MinWidth="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox x:Name="TextBoxSetupStatus" Height="30" Padding="10,0,10,0" Text="Setup Status" VerticalContentAlignment="Center" Foreground="#FFFFFFFF" Background="#FFCD8080"/>
+            <Button x:Name="ButtonOpenSetup" Padding="10,0,10,0" Content="Open Setup" VerticalContentAlignment="Center" Click="ButtonOpenSetup_Click"/>
+        </StackPanel>
+        <StackPanel x:Name="PanelSBConnect" IsEnabled="False" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+            <Grid Margin="0,0,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0">Select device:</Label>
+                <ListBox x:Name="ListDevices" HorizontalAlignment="Left" Grid.Row="1" Height="154" Width="200" SelectionMode="Single" SelectionChanged="ListDevices_SelectionChanged" BorderThickness="1">
+                    <ListBox.BorderBrush>
+                        <!--<SolidColorBrush Color="#BBFFFFFF" />-->
+                        <SolidColorBrush Color="#FF000000" />
+                    </ListBox.BorderBrush>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBlock Text="{Binding DeviceName}" VerticalAlignment="Center"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Grid Grid.Row="2" Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Output mode:" Grid.Column="0" HorizontalContentAlignment="Left" VerticalAlignment="Center"/>
+                    <Image x:Name="OutputModeErrorImage" Visibility="Visible" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Resources/baseline_error_black_36dp.png"/>
+                    <Image x:Name="OutputModeHeadphonesImage" Visibility="Hidden" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Resources/baseline_headset_black_36dp.png"/>
+                    <Image x:Name="OutputModeSpeakersImage" Visibility="Hidden" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Resources/baseline_speaker_black_36dp.png"/>
+                </Grid>
+
+            </Grid>
+            <Grid x:Name="GridOutputButtonsAndHotKeys" IsEnabled="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Switch:" HorizontalAlignment="Center"/>
+                <Label Grid.Column="2" Grid.Row="0" Content="HotKey:" HorizontalAlignment="Center"/>
+                <Label Grid.Column="4" Grid.Row="0" Content="EqualizerAPO path:" HorizontalAlignment="Center"/>
+
+                <Button x:Name="ButtonSwitchToHeadphones" Height="40" Width="72" Grid.Column="0" Grid.Row="1" Padding="0" Margin="0,0,0,15" VerticalAlignment="Center" Click="ButtonSwitchToHeadphones_Click">
+                    <StackPanel>
+                        <Image Source="Resources/baseline_headset_black_36dp.png" Stretch="None"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="ButtonSwitchToSpeakers" Height="40" Width="72" Grid.Column="0" Grid.Row="2" Padding="0" Margin="0,0,0,15" VerticalAlignment="Center" Click="ButtonSwitchToSpeakers_Click">
+                    <StackPanel>
+                        <Image Source="Resources/baseline_speaker_black_36dp.png" Stretch="None"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="ButtonToggleOutput" Height="40" Width="72" Grid.Column="0" Grid.Row="3" Padding="0" Margin="0,0,0,15" VerticalAlignment="Center" Click="ButtonToggleOutput_Click">
+                    <StackPanel>
+                        <Image Source="Resources/headphones_speaker_toggle_black_36p.png" Stretch="None"/>
+                    </StackPanel>
+                </Button>
+
+                <local:HotKeyEditorControl x:Name="HotKeyOutputHeadphones" Height="40" Width="140" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" HotKeyChanged="HotKeyHeadphonesOutput_HotKeyChanged" />
+                <local:HotKeyEditorControl x:Name="HotKeyOutputSpeakers" Height="40" Width="140" Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HotKeyChanged="HotKeySpeakersOutput_HotKeyChanged"/>
+                <local:HotKeyEditorControl x:Name="HotKeyOutputToggle" Height="40" Width="140" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" HotKeyChanged="HotKeyToggleOutput_HotKeyChanged"/>
+
+                <local:FileBrowseControl Height="40" Width="380" Grid.Column="4" Grid.Row="1" VerticalAlignment="Top" ToolTip="Source config - Headphones"
+                                         FilePathChanged="EqualizerConfig_FilePathChanged" FilePath="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerFilePathHeadphones}"
+                                         InitialDirectory="C:\Program Files\EqualizerAPO\config" InitialFilename="headphones.txt" DefaultExt=".txt" Filter="Text Files| *.txt"/>
+                <local:FileBrowseControl Height="40" Width="380" Grid.Column="4" Grid.Row="2" VerticalAlignment="Top" ToolTip="Source config - Speakers"
+                                         FilePathChanged="EqualizerConfig_FilePathChanged" FilePath="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerFilePathSpeakers}"
+                                         InitialDirectory="C:\Program Files\EqualizerAPO\config" InitialFilename="speakers.txt" DefaultExt=".txt" Filter="Text Files| *.txt"/>
+                <local:FileBrowseControl x:Name="FileBrowserTargetConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="3" VerticalAlignment="Top" ToolTip="Target config - config.txt by default"
+                                         FilePathChanged="EqualizerConfig_FilePathChanged" FilePath="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerFilePathConfig}"
+                                         InitialDirectory="C:\Program Files\EqualizerAPO\config" InitialFilename="config.txt" DefaultExt=".txt" Filter="Text Files| *.txt"/>
+
+            </Grid>
+
+        </StackPanel>
+    </StackPanel>
+</Window>

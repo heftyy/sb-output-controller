@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SBOutputController.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SBExecutablePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files (x86)\Creative\Sound Blaster Command\Creative.SBCommand.exe</Value>
+    </Setting>
+    <Setting Name="LastSelectedDevice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">G6</Value>
+    </Setting>
+    <Setting Name="HotKeyOutputHeadphones" Type="SBOutputController.HotKey" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="HotKeyOutputSpeakers" Type="SBOutputController.HotKey" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="HotKeyOutputToggle" Type="SBOutputController.HotKey" Scope="User">
+      <Value Profile="(Default)">Ctrl + Shift + D0</Value>
+    </Setting>
+    <Setting Name="EqualizerFilePathHeadphones" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\EqualizerAPO\config\headphones.txt</Value>
+    </Setting>
+    <Setting Name="EqualizerFilePathSpeakers" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\EqualizerAPO\config\speakers.txt</Value>
+    </Setting>
+    <Setting Name="EqualizerFilePathConfig" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\EqualizerAPO\config\config.txt</Value>
+    </Setting>
+    <Setting Name="RunOnStartup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

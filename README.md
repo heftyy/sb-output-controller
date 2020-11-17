@@ -19,4 +19,5 @@ What it can do:
 This will run require admin privileges and runs the windows utility regsvr32 to add the dll in the registery. I don't know how to make my application aware of this .dll in other ways, if anybody knows then let me know.
 6. Click finish in the setup window.
 7. Assign hotkeys.
-8. Browse for EqualizerAPO config files.
+8. (Optional) Enable the EqualizerAPO checkbox and browse for config files.
+9. Press the hotkey :)

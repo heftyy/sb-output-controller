@@ -120,6 +120,18 @@ namespace SBOutputController.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EqualizerEnabled {
+            get {
+                return ((bool)(this["EqualizerEnabled"]));
+            }
+            set {
+                this["EqualizerEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool RunOnStartup {
             get {
                 return ((bool)(this["RunOnStartup"]));

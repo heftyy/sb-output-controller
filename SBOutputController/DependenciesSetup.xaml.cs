@@ -66,8 +66,12 @@ namespace SBOutputController
             Close();
         }
 
-        private void CheckboxRunOnStartup_Click(object sender, RoutedEventArgs e)
+        private void CheckboxRunOnStartup_Changed(object sender, RoutedEventArgs e)
         {
+            bool is_checked = CheckboxRunOnStartup.IsChecked == true;
+            if (CheckboxRunOnStartup.IsChecked == Properties.Settings.Default.RunOnStartup)
+                return;
+
 #if DEBUG
             string application_name = "SBOutputController (Debug)";
 #else

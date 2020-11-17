@@ -235,7 +235,7 @@ namespace SBOutputController
             uint output_mode_value = _outputModeFeature.GetValue<uint>("MultiplexOutputParameterId");
             if (output_mode_value != requested_output_mode)
             {
-                //_outputModeFeature.SetValue<uint>(requested_output_mode, "MultiplexOutputParameterId");
+                _outputModeFeature.SetValue<uint>(requested_output_mode, "MultiplexOutputParameterId");
             }
         }
 

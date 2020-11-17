@@ -57,6 +57,8 @@ namespace SBOutputController
             _notifyIcon.Text = "SB Output Controller";
             _notifyIcon.DoubleClick += Window_Show;
             _notifyIcon.ContextMenu = _notifyIconContextMenu;
+
+            CheckboxEqualizerAPO_Changed(this, null);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -211,6 +213,19 @@ namespace SBOutputController
             }
         }
 
+        private void CheckboxEqualizerAPO_Changed(object sender, RoutedEventArgs e)
+        {
+            bool is_checked = CheckboxEqualizerAPO.IsChecked == true;
+            if (CheckboxEqualizerAPO.IsChecked == Properties.Settings.Default.EqualizerEnabled)
+                return;
+
+            FileBrowserHeadphonesConfig.IsEnabled = is_checked;
+            FileBrowserSpeakersConfig.IsEnabled = is_checked;
+            FileBrowserTargetConfig.IsEnabled = is_checked;
+
+            EqualizerConfig_FilePathChanged(this, null);
+        }
+
         private void ButtonSwitchToHeadphones_Click(object sender, RoutedEventArgs e)
         {
             DeviceWrapper device_wrapper = (DeviceWrapper)ListDevices.SelectedItem;
@@ -256,7 +271,7 @@ namespace SBOutputController
         private void EqualizerConfig_FilePathChanged(object sender, RoutedEventArgs e)
         {
             DeviceWrapper device_wrapper = (DeviceWrapper)ListDevices.SelectedItem;
-            if (device_wrapper == null)
+            if (device_wrapper == null || CheckboxEqualizerAPO.IsChecked == false)
             {
                 return;
             }

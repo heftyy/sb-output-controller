@@ -68,7 +68,8 @@
 
                 <Label Grid.Column="0" Grid.Row="0" Content="Switch:" HorizontalAlignment="Center"/>
                 <Label Grid.Column="2" Grid.Row="0" Content="HotKey:" HorizontalAlignment="Center"/>
-                <Label Grid.Column="4" Grid.Row="0" Content="EqualizerAPO path:" HorizontalAlignment="Center"/>
+                <CheckBox x:Name="CheckboxEqualizerAPO" Grid.Column="4" Grid.Row="0" Content="EqualizerAPO path:" VerticalAlignment="Center" HorizontalAlignment="Center"
+                          IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerEnabled}" Checked="CheckboxEqualizerAPO_Changed" Unchecked="CheckboxEqualizerAPO_Changed"/>
 
                 <Button x:Name="ButtonSwitchToHeadphones" Height="40" Width="72" Grid.Column="0" Grid.Row="1" Padding="0" Margin="0,0,0,15" VerticalAlignment="Center" Click="ButtonSwitchToHeadphones_Click">
                     <StackPanel>
@@ -90,10 +91,10 @@
                 <local:HotKeyEditorControl x:Name="HotKeyOutputSpeakers" Height="40" Width="140" Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HotKeyChanged="HotKeySpeakersOutput_HotKeyChanged"/>
                 <local:HotKeyEditorControl x:Name="HotKeyOutputToggle" Height="40" Width="140" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" HotKeyChanged="HotKeyToggleOutput_HotKeyChanged"/>
 
-                <local:FileBrowseControl Height="40" Width="380" Grid.Column="4" Grid.Row="1" VerticalAlignment="Top" ToolTip="Source config - Headphones"
+                <local:FileBrowseControl x:Name="FileBrowserHeadphonesConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="1" VerticalAlignment="Top" ToolTip="Source config - Headphones"
                                          FilePathChanged="EqualizerConfig_FilePathChanged" FilePath="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerFilePathHeadphones}"
                                          InitialDirectory="C:\Program Files\EqualizerAPO\config" InitialFilename="headphones.txt" DefaultExt=".txt" Filter="Text Files| *.txt"/>
-                <local:FileBrowseControl Height="40" Width="380" Grid.Column="4" Grid.Row="2" VerticalAlignment="Top" ToolTip="Source config - Speakers"
+                <local:FileBrowseControl x:Name="FileBrowserSpeakersConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="2" VerticalAlignment="Top" ToolTip="Source config - Speakers"
                                          FilePathChanged="EqualizerConfig_FilePathChanged" FilePath="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerFilePathSpeakers}"
                                          InitialDirectory="C:\Program Files\EqualizerAPO\config" InitialFilename="speakers.txt" DefaultExt=".txt" Filter="Text Files| *.txt"/>
                 <local:FileBrowseControl x:Name="FileBrowserTargetConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="3" VerticalAlignment="Top" ToolTip="Target config - config.txt by default"

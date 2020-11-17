@@ -26,6 +26,9 @@
     <Setting Name="EqualizerFilePathConfig" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Program Files\EqualizerAPO\config\config.txt</Value>
     </Setting>
+    <Setting Name="EqualizerEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="RunOnStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>

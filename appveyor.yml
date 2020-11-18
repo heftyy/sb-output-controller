@@ -1,6 +1,5 @@
 platform:
   - x86
-  - Any CPU
 
 configuration:
   - Debug

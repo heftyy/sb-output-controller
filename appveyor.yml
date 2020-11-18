@@ -2,7 +2,6 @@ platform:
   - x86
 
 configuration:
-  - Debug
   - Release
 
 version: '1.0.{build}'

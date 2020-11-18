@@ -4,7 +4,7 @@ platform: x86
 build:
   verbosity: minimal
 after_build:
-- sh: 7z a sb_output_controller.zip %APPVEYOR_BUILD_FOLDER%\*
+- cmd: 7z a sb_output_controller.zip %APPVEYOR_BUILD_FOLDER%\*
 artifacts:
 - path: sb_output_controller.7z
   name: sb_output_controller

@@ -1,4 +1,4 @@
-version: {build}
+version: build-{build}
 configuration: Release
 skip_non_tags: true
 platform: x86
@@ -7,9 +7,9 @@ before_build:
 build:
   verbosity: minimal
 after_build:
-- cmd: 7z a sb_output_controller_%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\SBOutputController\bin\x86\Release\*
+- cmd: 7z a sb_output_controller_%APPVEYOR_REPO_TAG_NAME%.zip %APPVEYOR_BUILD_FOLDER%\SBOutputController\bin\x86\Release\*
 artifacts:
-- path: sb_output_controller_%APPVEYOR_BUILD_VERSION%.zip
+- path: sb_output_controller_%APPVEYOR_REPO_TAG_NAME%.zip
   name: sb_output_controller
 deploy:
 - provider: GitHub

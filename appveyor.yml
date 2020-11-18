@@ -1,7 +1,17 @@
-platform:
-  - x86
-
-configuration:
-  - Release
-
-version: '1.0.{build}'
+version: 1.0.{build}
+configuration: Release
+platform: x86
+build:
+  verbosity: minimal
+after_build:
+- sh: 7z a sb_output_controller.zip %APPVEYOR_BUILD_FOLDER%\*
+artifacts:
+- path: sb_output_controller.7z
+  name: sb_output_controller
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: tPQlpogO3kQiZWPaZ+hTfhox3kSjtDje4pKKatFlB1aKC47koCPUN5jSugV5ISyG9nsMspvR2SKw+6xbIFI6kdZXEwuP+JNdgOwMymHaqAU=
+  artifact: sb_output_controller
+  on:
+    branch: main

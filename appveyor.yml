@@ -4,9 +4,9 @@ platform: x86
 build:
   verbosity: minimal
 after_build:
-- cmd: 7z a sb_output_controller.zip %APPVEYOR_BUILD_FOLDER%\SBOutputController\bin\x86\Release\*
+- cmd: 7z a sb_output_controller_%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\SBOutputController\bin\x86\Release\*
 artifacts:
-- path: sb_output_controller.zip
+- path: sb_output_controller_%APPVEYOR_BUILD_VERSION%.zip
   name: sb_output_controller
 deploy:
 - provider: GitHub

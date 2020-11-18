@@ -215,10 +215,10 @@ namespace SBOutputController
 
         private void CheckboxEqualizerAPO_Changed(object sender, RoutedEventArgs e)
         {
-            bool is_checked = CheckboxEqualizerAPO.IsChecked == true;
-            if (CheckboxEqualizerAPO.IsChecked == Properties.Settings.Default.EqualizerEnabled)
+            if (!IsInitialized)
                 return;
 
+            bool is_checked = CheckboxEqualizerAPO.IsChecked == true;
             FileBrowserHeadphonesConfig.IsEnabled = is_checked;
             FileBrowserSpeakersConfig.IsEnabled = is_checked;
             FileBrowserTargetConfig.IsEnabled = is_checked;

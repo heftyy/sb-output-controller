@@ -68,8 +68,7 @@ namespace SBOutputController
 
         private void CheckboxRunOnStartup_Changed(object sender, RoutedEventArgs e)
         {
-            bool is_checked = CheckboxRunOnStartup.IsChecked == true;
-            if (CheckboxRunOnStartup.IsChecked == Properties.Settings.Default.RunOnStartup)
+            if (!IsInitialized)
                 return;
 
 #if DEBUG

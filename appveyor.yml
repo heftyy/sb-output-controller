@@ -1,5 +1,6 @@
 version: 1.0.{build}
 configuration: Release
+skip_non_tags: true
 platform: x86
 build:
   verbosity: minimal

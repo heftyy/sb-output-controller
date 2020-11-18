@@ -3,7 +3,7 @@ configuration: Release
 skip_non_tags: true
 platform: x86
 before_build:
-- cmd: Update-AppveyorBuild -Version "%APPVEYOR_REPO_TAG_NAME%-%APPVEYOR_BUILD_VERSION%"
+- ps: Update-AppveyorBuild -Version "%APPVEYOR_REPO_TAG_NAME%-%APPVEYOR_BUILD_VERSION%"
 build:
   verbosity: minimal
 after_build:

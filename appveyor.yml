@@ -2,6 +2,8 @@ version: build-{build}
 configuration: Release
 skip_non_tags: true
 platform: x86
+before_build:
+- cmd: echo %APPVEYOR_REPO_TAG_NAME% > version.txt
 build:
   verbosity: minimal
 after_build:

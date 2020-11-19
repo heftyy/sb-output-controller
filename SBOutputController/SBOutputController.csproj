@@ -225,5 +225,8 @@
   <ItemGroup>
     <Resource Include="output_toggle_icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="version.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

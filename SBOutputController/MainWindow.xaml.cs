@@ -30,7 +30,7 @@ namespace SBOutputController
         {
             InitializeComponent();
 
-            string version = "Manually built";
+            string version = "Version unknown";
             Assembly this_assembly = Assembly.GetExecutingAssembly();
             Stream stream = this_assembly.GetManifestResourceStream(this_assembly.GetName().Name + ".version.txt");
             if (stream != null)

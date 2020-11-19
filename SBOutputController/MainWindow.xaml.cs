@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -28,6 +29,20 @@ namespace SBOutputController
         public MainWindow()
         {
             InitializeComponent();
+
+            string version = "Manually built";
+            Assembly this_assembly = Assembly.GetExecutingAssembly();
+            Stream stream = this_assembly.GetManifestResourceStream(this_assembly.GetName().Name + ".version.txt");
+            if (stream != null)
+            {
+                using (stream)
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    version = reader.ReadToEnd();
+                }
+            }
+
+            Title += " - " + version;
 
             _keyboardHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(KeyboardHook_HotKeyPressed);
 

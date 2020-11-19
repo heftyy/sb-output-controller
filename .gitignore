@@ -6,6 +6,9 @@
 *.user
 *.sln.docstates
 
+# exclude the generated version file
+SBOutputController/version.txt
+
 # Build results
 
 [Dd]ebug/

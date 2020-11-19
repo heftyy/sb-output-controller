@@ -6,7 +6,7 @@
                  xmlns:local="clr-namespace:SBOutputController"
                  xmlns:properties="clr-namespace:SBOutputController.Properties"
                  mc:Ignorable="d"
-                 Loaded="Window_Loaded"
+                 ContentRendered="Window_ContentRendered"
                  Closing="Window_Closing"
                  Title="SB Output Controller" MinHeight="340" MinWidth="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10">

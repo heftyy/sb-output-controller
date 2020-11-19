@@ -61,7 +61,7 @@ namespace SBOutputController
             CheckboxEqualizerAPO_Changed(this, null);
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_ContentRendered(object sender, EventArgs e)
         {
             if (!SBController.VerifySetup(Properties.Settings.Default.SBExecutablePath))
             {

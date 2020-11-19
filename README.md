@@ -16,7 +16,7 @@ What it can do:
 4. Browse to the directory where Sound Blaster Command and find Creative.SBCommand.exe
 (SBOutputController uses the .dlls that are installed with Sound Blaster Command to do the actual output switching and monitoring which output is currently active)
 5. Register SndCrUSB.DLL by clicking the Register button in the setup window.
-This will run require admin privileges and runs the windows utility regsvr32 to add the dll in the registery. I don't know how to make my application aware of this .dll in other ways, if anybody knows then let me know.
+This will require admin privileges to run the windows utility regsvr32 that adds the dll to the registery. This is the easiest way I found to make my application recognize that dll.
 6. Click finish in the setup window.
 7. Assign hotkeys.
 8. (Optional) Enable the EqualizerAPO checkbox and browse for config files.

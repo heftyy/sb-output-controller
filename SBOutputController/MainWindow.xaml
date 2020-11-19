@@ -11,7 +11,7 @@
                  Title="SB Output Controller" MinHeight="340" MinWidth="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBox x:Name="TextBoxSetupStatus" Height="30" Padding="10,0,10,0" Text="Setup Status" VerticalContentAlignment="Center" Foreground="#FFFFFFFF" Background="#FFCD8080"/>
+            <TextBox x:Name="TextBoxSetupStatus" Height="30" IsReadOnly="True" Padding="10,0,10,0" Text="Setup Status" VerticalContentAlignment="Center" Foreground="#FFFFFFFF" Background="#FFCD8080"/>
             <Button x:Name="ButtonOpenSetup" Padding="10,0,10,0" Content="Open Setup" VerticalContentAlignment="Center" Click="ButtonOpenSetup_Click"/>
         </StackPanel>
         <StackPanel x:Name="PanelSBConnect" IsEnabled="False" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">

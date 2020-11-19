@@ -161,18 +161,24 @@ namespace SBOutputController
 
         private void SetupChanged(string exe_path)
         {
+            TextBoxSetupStatus.Background = new SolidColorBrush(StatusFailure);
+            PanelSBConnect.IsEnabled = false;
             if (SBController.VerifySetup(exe_path))
             {
                 Properties.Settings.Default.SBExecutablePath = exe_path;
 
-                InitializeSBConnect();
-                PanelSBConnect.IsEnabled = true;
-                TextBoxSetupStatus.Background = new SolidColorBrush(StatusSuccess);
-            }
-            else
-            {
-                PanelSBConnect.IsEnabled = false;
-                TextBoxSetupStatus.Background = new SolidColorBrush(StatusFailure);
+                try
+                {
+                    InitializeSBConnect();
+
+                    TextBoxSetupStatus.Text = string.Format("Setup Status");
+                    TextBoxSetupStatus.Background = new SolidColorBrush(StatusSuccess);
+                    PanelSBConnect.IsEnabled = true;
+                }
+                catch (Exception ex)
+                {
+                    TextBoxSetupStatus.Text = string.Format("Setup Status - {0}", ex.Message);
+                }
             }
         }
 

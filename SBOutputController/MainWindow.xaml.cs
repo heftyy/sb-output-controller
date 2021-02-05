@@ -154,14 +154,14 @@ namespace SBOutputController
             {
                 // Seems like soundblaster needs a little bit of a delay after waking up to be active
                 // For now I set it to 5s to be on the safe side
-                System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-                dispatcherTimer.Tick += (_, __) =>
+                System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
+                timer.Tick += (_, __) =>
                 {
-                    dispatcherTimer.Stop();
+                    timer.Stop();
                     InitializeSBConnect();
                 };
-                dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
-                dispatcherTimer.Start();
+                timer.Interval = new TimeSpan(0, 0, 5);
+                timer.Start();
             }
         }
 

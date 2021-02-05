@@ -56,7 +56,7 @@ namespace SBOutputController
             // register the event of the inner native window.
             _window.KeyPressedNative += delegate (object sender, KeyPressedEventArgs args)
             {
-                KeyPressed?.Invoke(this, args);
+                KeyPressed(this, args);
             };
         }
 

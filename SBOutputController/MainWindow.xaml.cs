@@ -44,7 +44,8 @@ namespace SBOutputController
 
             Title += " - " + version;
 
-            _keyboardHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(KeyboardHook_HotKeyPressed);
+            _keyboardHook.KeyPressed += KeyboardHook_HotKeyPressed;
+            Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
             HotKeyOutputHeadphones.HotKey = Properties.Settings.Default.HotKeyOutputHeadphones;
             HotKeyOutputSpeakers.HotKey = Properties.Settings.Default.HotKeyOutputSpeakers;
@@ -74,6 +75,24 @@ namespace SBOutputController
             _notifyIcon.ContextMenu = _notifyIconContextMenu;
 
             CheckboxEqualizerAPO_Changed(this, null);
+        }
+
+        private void InitializeSBConnect()
+        {
+            Directory.SetCurrentDirectory(SBDirectory);
+
+            _sbConnectApi = new SBController(SBDirectory);
+            _sbConnectApi.OutputModeChangedEvent += SBConnect_OutputModeChanged;
+
+            ListDevices.Items.Clear();
+            foreach (DeviceWrapper device_wrapper in _sbConnectApi.GetDevices())
+            {
+                ListDevices.Items.Add(device_wrapper);
+                if (device_wrapper.DeviceName == Properties.Settings.Default.LastSelectedDevice)
+                {
+                    ListDevices.SelectedItem = device_wrapper;
+                }
+            }
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
@@ -129,21 +148,20 @@ namespace SBOutputController
             }
         }
 
-        private void InitializeSBConnect()
+        private void SystemEvents_PowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
         {
-            Directory.SetCurrentDirectory(SBDirectory);
-
-            _sbConnectApi = new SBController(SBDirectory);
-            _sbConnectApi.OutputModeChangedEvent += SBConnect_OutputModeChanged;
-
-            ListDevices.Items.Clear();
-            foreach (DeviceWrapper device_wrapper in _sbConnectApi.GetDevices())
+            if (e.Mode == Microsoft.Win32.PowerModes.Resume)
             {
-                ListDevices.Items.Add(device_wrapper);
-                if (device_wrapper.DeviceName == Properties.Settings.Default.LastSelectedDevice)
+                // Seems like soundblaster needs a little bit of a delay after waking up to be active
+                // For now I set it to 5s to be on the safe side
+                System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+                dispatcherTimer.Tick += (_, __) =>
                 {
-                    ListDevices.SelectedItem = device_wrapper;
-                }
+                    dispatcherTimer.Stop();
+                    InitializeSBConnect();
+                };
+                dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
+                dispatcherTimer.Start();
             }
         }
 

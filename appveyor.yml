@@ -14,7 +14,7 @@ artifacts:
 deploy:
 - provider: GitHub
   auth_token:
-    secure: Wl8JicOIG/RIyruxyHhi3ZENowMCOlWhuxzjPSoiEegFJbxyvQAvAevpAYOIqsxI
+    secure: NmYiWU0cS/AkZpWQ9O12oJsMbB30T0fpylZlc3yK60Lbn+ZIpaPDAsDIZ4QAFqY/
   artifact: sb_output_controller
   on:
     branch: main

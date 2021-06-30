@@ -219,6 +219,7 @@ namespace SBOutputController
         {
             UpdateDeviceOuputModeView(e.OutputMode);
             EqualizerConfig_FilePathChanged(this, null);
+            UpdateDirectMode();
         }
 
         private void UpdateDeviceOuputModeView(DeviceOutputModes output_mode)
@@ -268,21 +269,30 @@ namespace SBOutputController
         private void ButtonSwitchToHeadphones_Click(object sender, RoutedEventArgs e)
         {
             DeviceWrapper device_wrapper = (DeviceWrapper)ListDevices.SelectedItem;
-            _sbConnectApi.SwitchToOutputMode(device_wrapper, DeviceOutputModes.Headphones);
+            if (device_wrapper != null)
+            {
+                _sbConnectApi.SwitchToOutputMode(device_wrapper, DeviceOutputModes.Headphones);
+            }
         }
 
         private void ButtonSwitchToSpeakers_Click(object sender, RoutedEventArgs e)
         {
             DeviceWrapper device_wrapper = (DeviceWrapper)ListDevices.SelectedItem;
-            _sbConnectApi.SwitchToOutputMode(device_wrapper, DeviceOutputModes.Speakers);
+            if (device_wrapper != null)
+            {
+                _sbConnectApi.SwitchToOutputMode(device_wrapper, DeviceOutputModes.Speakers);
+            }
         }
 
         private void ButtonToggleOutput_Click(object sender, RoutedEventArgs e)
         {
             DeviceWrapper device_wrapper = (DeviceWrapper)ListDevices.SelectedItem;
-            DeviceOutputModes output_mode = _sbConnectApi.GetOutputModeForDevice(device_wrapper);
-            DeviceOutputModes desired_output_mode = output_mode == DeviceOutputModes.Headphones ? DeviceOutputModes.Speakers : DeviceOutputModes.Headphones;
-            _sbConnectApi.SwitchToOutputMode(device_wrapper, desired_output_mode);
+            if (device_wrapper != null)
+            {
+                DeviceOutputModes output_mode = _sbConnectApi.GetOutputModeForDevice(device_wrapper);
+                DeviceOutputModes desired_output_mode = output_mode == DeviceOutputModes.Headphones ? DeviceOutputModes.Speakers : DeviceOutputModes.Headphones;
+                _sbConnectApi.SwitchToOutputMode(device_wrapper, desired_output_mode);
+            }
         }
 
         private void HotKeyHeadphonesOutput_HotKeyChanged(object sender, RoutedEventArgs e)
@@ -322,13 +332,50 @@ namespace SBOutputController
                 FileBrowserTargetConfig.TextBoxFilePath.Background = new SolidColorBrush(Colors.Transparent);
                 FileBrowserTargetConfig.TextBoxFilePath.Foreground = new SolidColorBrush(Colors.SlateGray);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 FileBrowserTargetConfig.ToolTip = string.Format("Target config - config.txt by default\n\nUpdating the EQ config file failed.\nError: {0}", ex.Message);
                 FileBrowserTargetConfig.TextBoxFilePath.Background = new SolidColorBrush(StatusFailure);
                 FileBrowserTargetConfig.TextBoxFilePath.Foreground = new SolidColorBrush(Colors.White);
             }
-            
+        }
+
+        private void UpdateDirectMode()
+        {
+            DeviceWrapper device_wrapper = (DeviceWrapper)ListDevices.SelectedItem;
+            if (device_wrapper != null)
+            {
+                DeviceOutputModes output_mode = _sbConnectApi.GetOutputModeForDevice(device_wrapper);
+                switch (output_mode)
+                {
+                    case DeviceOutputModes.Headphones:
+                        {
+                            bool direct_mode_enabled = Properties.Settings.Default.HeadphonesDirectMode;
+                            _sbConnectApi.SwitchDirectMode(device_wrapper, direct_mode_enabled ? DirectModeStates.On : DirectModeStates.Off);
+                            break;
+                        }
+                    case DeviceOutputModes.Speakers:
+                        {
+                            bool direct_mode_enabled = Properties.Settings.Default.SpeakersDirectMode;
+                            _sbConnectApi.SwitchDirectMode(device_wrapper, direct_mode_enabled ? DirectModeStates.On : DirectModeStates.Off);
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void CheckboxHeadphonesDirectMode_Changed(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.HeadphonesDirectMode = HeadphonesDirectMode.IsChecked == true;
+            UpdateDirectMode();
+        }
+
+        private void CheckboxSpeakersDirectMode_Changed(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SpeakersDirectMode = SpeakersDirectMode.IsChecked == true;
+            UpdateDirectMode();
         }
     }
 }

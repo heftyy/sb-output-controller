@@ -10,12 +10,12 @@ namespace SBOutputController
     {
         public DeviceWrapper(dynamic device)
         {
-            DativeDevice = device;
+            NativeDevice = device;
             DeviceName = device.DeviceName;
         }
 
         public string DeviceName { get; }
-        public dynamic DativeDevice { get; }
+        public dynamic NativeDevice { get; }
     }
 
     class NoDevicesFound : Exception
@@ -36,6 +36,12 @@ namespace SBOutputController
     {
         Speakers = 2U,
         Headphones = 4U
+    }
+
+    enum DirectModeStates : uint
+    {
+        Off = 0U,
+        On = 1U
     }
 
     class OutputModeChangedEventArgs : EventArgs
@@ -186,10 +192,11 @@ namespace SBOutputController
 
         public void SetActiveDevice(DeviceWrapper device_wrapper)
         {
-            if (_activeDevice == null || _activeDevice.DativeDevice != device_wrapper.DativeDevice)
+            if (_activeDevice == null || _activeDevice.NativeDevice != device_wrapper.NativeDevice)
             {
                 _activeDevice = device_wrapper;
-                _outputModeFeature = _deviceEndpointSelectionService.GetAggregatedFeature(device_wrapper.DativeDevice, "MultiplexOutputFeatureId");
+                _outputModeFeature = _deviceEndpointSelectionService.GetAggregatedFeature(device_wrapper.NativeDevice, "MultiplexOutputFeatureId");
+                _stereoDirectFeature = _deviceEndpointSelectionService.GetAggregatedFeature(device_wrapper.NativeDevice, "StereoDirectFeatureId");
 
                 Type value_changed_delegate_type = _sbDevicesDLL.GetType("Creative.Platform.Devices.Selections.EffectParameterValueChangedDelegate");
                 dynamic value_changed_delegate = Delegate.CreateDelegate(value_changed_delegate_type, this, "OnOutputModeChanged");
@@ -239,11 +246,24 @@ namespace SBOutputController
             }
         }
 
+        public void SwitchDirectMode(DeviceWrapper device_wrapper, DirectModeStates requested_direct_mode_enum)
+        {
+            SetActiveDevice(device_wrapper);
+
+            uint requested_direct_mode = (uint)requested_direct_mode_enum;
+            uint direct_mode_value = _stereoDirectFeature.GetValue<uint>("StereoDirectParameterId");
+            if (direct_mode_value != requested_direct_mode)
+            {
+                _stereoDirectFeature.SetValue<uint>(requested_direct_mode, "StereoDirectParameterId");
+            }
+        }
+
         private Assembly _sbDevicesDLL;
 
         private dynamic _deviceManager;
         private dynamic _deviceEndpointSelectionService;
         private dynamic _outputModeFeature;
+        private dynamic _stereoDirectFeature;
 
         private readonly string _sbDirectory;
 

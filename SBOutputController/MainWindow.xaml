@@ -17,13 +17,13 @@
         <StackPanel x:Name="PanelSBConnect" IsEnabled="False" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
             <Grid Margin="0,0,20,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0">Select device:</Label>
-                <ListBox x:Name="ListDevices" HorizontalAlignment="Left" Grid.Row="1" Height="154" Width="200" SelectionMode="Single" SelectionChanged="ListDevices_SelectionChanged" BorderThickness="1">
+                <ListBox x:Name="ListDevices" HorizontalAlignment="Left" Grid.Row="1" Height="140" Width="200" SelectionMode="Single" SelectionChanged="ListDevices_SelectionChanged" BorderThickness="1">
                     <ListBox.BorderBrush>
                         <!--<SolidColorBrush Color="#BBFFFFFF" />-->
                         <SolidColorBrush Color="#FF000000" />
@@ -58,46 +58,58 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="10"/>
                     <ColumnDefinition />
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="26" />
+                    <RowDefinition Height="4" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
 
-                <Label Grid.Column="0" Grid.Row="0" Content="Switch:" HorizontalAlignment="Center"/>
-                <Label Grid.Column="2" Grid.Row="0" Content="HotKey:" HorizontalAlignment="Center"/>
+                <Label Grid.Column="0" Grid.Row="0" Content="Switch:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Grid.Column="2" Grid.Row="0" Content="HotKey:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <CheckBox x:Name="CheckboxEqualizerAPO" Grid.Column="4" Grid.Row="0" Content="EqualizerAPO path:" VerticalAlignment="Center" HorizontalAlignment="Center"
                           IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerEnabled}" Checked="CheckboxEqualizerAPO_Changed" Unchecked="CheckboxEqualizerAPO_Changed"/>
+                <Label Grid.Column="6" Grid.Row="0" Content="Direct Mode:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                <Button x:Name="ButtonSwitchToHeadphones" Height="40" Width="72" Grid.Column="0" Grid.Row="1" Padding="0" Margin="0,0,0,15" VerticalAlignment="Center" Click="ButtonSwitchToHeadphones_Click">
+                <Button x:Name="ButtonSwitchToHeadphones" Height="40" Width="72" Grid.Column="0" Grid.Row="2" Padding="0" VerticalAlignment="Center" Click="ButtonSwitchToHeadphones_Click">
                     <StackPanel>
                         <Image Source="Resources/baseline_headset_black_36dp.png" Stretch="None"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="ButtonSwitchToSpeakers" Height="40" Width="72" Grid.Column="0" Grid.Row="2" Padding="0" Margin="0,0,0,15" VerticalAlignment="Center" Click="ButtonSwitchToSpeakers_Click">
+                <Button x:Name="ButtonSwitchToSpeakers" Height="40" Width="72" Grid.Column="0" Grid.Row="4" Padding="0" VerticalAlignment="Center" Click="ButtonSwitchToSpeakers_Click">
                     <StackPanel>
                         <Image Source="Resources/baseline_speaker_black_36dp.png" Stretch="None"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="ButtonToggleOutput" Height="40" Width="72" Grid.Column="0" Grid.Row="3" Padding="0" Margin="0,0,0,15" VerticalAlignment="Center" Click="ButtonToggleOutput_Click">
+                <Button x:Name="ButtonToggleOutput" Height="40" Width="72" Grid.Column="0" Grid.Row="6" Padding="0" VerticalAlignment="Center" Click="ButtonToggleOutput_Click">
                     <StackPanel>
                         <Image Source="Resources/headphones_speaker_toggle_black_36p.png" Stretch="None"/>
                     </StackPanel>
                 </Button>
 
-                <local:HotKeyEditorControl x:Name="HotKeyOutputHeadphones" Height="40" Width="140" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" HotKeyChanged="HotKeyHeadphonesOutput_HotKeyChanged" />
-                <local:HotKeyEditorControl x:Name="HotKeyOutputSpeakers" Height="40" Width="140" Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HotKeyChanged="HotKeySpeakersOutput_HotKeyChanged"/>
-                <local:HotKeyEditorControl x:Name="HotKeyOutputToggle" Height="40" Width="140" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" HotKeyChanged="HotKeyToggleOutput_HotKeyChanged"/>
+                <local:HotKeyEditorControl x:Name="HotKeyOutputHeadphones" Height="40" Width="140" Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HotKeyChanged="HotKeyHeadphonesOutput_HotKeyChanged" />
+                <local:HotKeyEditorControl x:Name="HotKeyOutputSpeakers" Height="40" Width="140" Grid.Column="2" Grid.Row="4" VerticalAlignment="Top" HotKeyChanged="HotKeySpeakersOutput_HotKeyChanged"/>
+                <local:HotKeyEditorControl x:Name="HotKeyOutputToggle" Height="40" Width="140" Grid.Column="2" Grid.Row="6" VerticalAlignment="Top" HotKeyChanged="HotKeyToggleOutput_HotKeyChanged"/>
 
-                <local:FileBrowseControl x:Name="FileBrowserHeadphonesConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="1" VerticalAlignment="Top" ToolTip="Source config - Headphones"
+                <CheckBox x:Name="HeadphonesDirectMode" Grid.Column="6" Grid.Row="2" Content="" Padding="0" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Toggle direct mode - Headphones"
+                          IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=HeadphonesDirectMode}" Checked="CheckboxHeadphonesDirectMode_Changed" Unchecked="CheckboxHeadphonesDirectMode_Changed"/>
+
+                <CheckBox x:Name="SpeakersDirectMode" Grid.Column="6" Grid.Row="4" Content="" Padding="0" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Toggle direct mode - Speakers"
+                          IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=SpeakersDirectMode}" Checked="CheckboxSpeakersDirectMode_Changed" Unchecked="CheckboxSpeakersDirectMode_Changed"/>
+
+                <local:FileBrowseControl x:Name="FileBrowserHeadphonesConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="2" VerticalAlignment="Top" ToolTip="Source config - Headphones"
                                          FilePathChanged="EqualizerConfig_FilePathChanged" FilePath="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerFilePathHeadphones}"
                                          InitialDirectory="C:\Program Files\EqualizerAPO\config" InitialFilename="headphones.txt" DefaultExt=".txt" Filter="Text Files| *.txt"/>
-                <local:FileBrowseControl x:Name="FileBrowserSpeakersConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="2" VerticalAlignment="Top" ToolTip="Source config - Speakers"
+                <local:FileBrowseControl x:Name="FileBrowserSpeakersConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="4" VerticalAlignment="Top" ToolTip="Source config - Speakers"
                                          FilePathChanged="EqualizerConfig_FilePathChanged" FilePath="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerFilePathSpeakers}"
                                          InitialDirectory="C:\Program Files\EqualizerAPO\config" InitialFilename="speakers.txt" DefaultExt=".txt" Filter="Text Files| *.txt"/>
-                <local:FileBrowseControl x:Name="FileBrowserTargetConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="3" VerticalAlignment="Top" ToolTip="Target config - config.txt by default"
+                <local:FileBrowseControl x:Name="FileBrowserTargetConfig" Height="40" Width="380" Grid.Column="4" Grid.Row="6" VerticalAlignment="Top" ToolTip="Target config - config.txt by default"
                                          FilePathChanged="EqualizerConfig_FilePathChanged" FilePath="{Binding Source={x:Static properties:Settings.Default}, Path=EqualizerFilePathConfig}"
                                          InitialDirectory="C:\Program Files\EqualizerAPO\config" InitialFilename="config.txt" DefaultExt=".txt" Filter="Text Files| *.txt"/>
 
